@@ -8,10 +8,10 @@ repository = "https://github.com/plasmaconduit/noggin/"
 readme = "../README.md"
 
 [dependencies]
-#noggin-derive = "0.1.0"
-#noggin-parser = "0.1.0"
-noggin-derive = { path = "../noggin-derive" }
-noggin-parser = { path = "../noggin-parser" }
+noggin-derive = "0.1.0"
+noggin-parser = "0.1.0"
+#noggin-derive = { path = "../noggin-derive" }
+#noggin-parser = { path = "../noggin-parser" }
 
 [dev-dependencies]
 rstest = { workspace = true }
