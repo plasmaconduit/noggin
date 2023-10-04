@@ -8,6 +8,7 @@
 
 - [Features](#features)
 - [Examples](#examples)
+- [Testing](#testing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
