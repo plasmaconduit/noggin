@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = ["noggin-parser", "noggin-derive", "noggin"]
+
+[workspace.dependencies]
+memchr = "2.6.4"
+proc-macro2 = "1.0.67"
+quote = "1.0.33"
+syn = "2.0.37"
+thiserror = "1.0.49"
+rstest = "0.18.2"

@@ -1,0 +1,98 @@
+name: Tests
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create the build cache directory
+        run: |
+          mkdir build-cache
+          sudo chmod -R ugo+rwx ./build-cache
+      - name: Cache docker
+        id: cache-docker
+        uses: actions/cache@v3
+        with:
+          path: build-cache/docker-image.tar.gz
+          key: docker-${{ hashFiles('dev.docker') }}
+      - name: Build docker image
+        if: steps.cache-docker.outputs.cache-hit != 'true'
+        run: make build-image-ci
+      - name: Load cached docker image
+        if: steps.cache-docker.outputs.cache-hit == 'true'
+        run: make load-image-ci
+      - name: Cache pre-commit
+        id: cache-pre-commit
+        uses: actions/cache@v3
+        with:
+          path: |
+            build-cache/pip
+            build-cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Install pre-commit hooks
+        if: steps.cache-pre-commit.outputs.cache-hit != 'true'
+        run: make build-pre-commit
+      - name: Cache cargo
+        id: cache-cargo
+        uses: actions/cache@v3
+        with:
+          path: |
+            build-cache/cargo
+            build-cache/rust
+          key: cargo-${{ hashFiles('Cargo.toml') }}
+      - name: Install cargo deps
+        if: steps.cache-cargo.outputs.cache-hit != 'true'
+        run: make build-tests
+      - name: Fix cache permissions
+        run: sudo chmod -R ugo+rwx ./build-cache
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore cached docker image
+        uses: actions/cache/restore@v3
+        with:
+          path: build-cache/docker-image.tar.gz
+          key: docker-${{ hashFiles('dev.docker') }}
+      - name: Restore cached cargo deps
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            build-cache/cargo
+            build-cache/rust
+          key: cargo-${{ hashFiles('Cargo.toml') }}
+      - name: Run tests
+        run: make test-ci
+  pre-commit:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: Restore cached docker image
+        uses: actions/cache/restore@v3
+        with:
+          path: build-cache/docker-image.tar.gz
+          key: docker-${{ hashFiles('dev.docker') }}
+      - name: Restore cached pre-commit hooks
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            build-cache/pip
+            build-cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Restore cached cargo deps
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            build-cache/cargo
+            build-cache/rust
+          key: cargo-${{ hashFiles('Cargo.toml') }}
+      - name: Run pre-commit
+        run: make pre-commit-ci

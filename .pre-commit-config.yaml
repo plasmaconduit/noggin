@@ -1,0 +1,34 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+  - repo: local
+    hooks:
+      - id: doctoc
+        name: use doctoc to generate tables of content
+        language: system
+        entry: doctoc --title '**Table of Contents**'
+        files: ^.*\.md$
+        always_run: true
+      - id: cargo fmt
+        name: format rust files
+        language: system
+        entry: cargo fmt
+        files: __NONE__
+        always_run: true
+      - id: cargo clippy
+        name: run clippy on rust files
+        language: system
+        entry: cargo clippy
+        files: __NONE__
+        always_run: true
+      - id: cargo check
+        name: run cargo check on rust files
+        language: system
+        entry: cargo check
+        files: __NONE__
+        always_run: true
