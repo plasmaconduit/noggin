@@ -1,5 +1,13 @@
 # Noggin
 
+[![crates.io][crates-badge]][crates-link]
+[![docs.rs][docs-badge]][docs-link]
+
+[crates-badge]: https://img.shields.io/crates/v/noggin
+[crates-link]: https://crates.io/crates/noggin
+[docs-badge]: https://img.shields.io/docsrs/noggin
+[docs-link]: https://docs.rs/noggin/latest/noggin/
+
 **A declarative, zero-copy, proc-macro based header parser for Rust.**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
