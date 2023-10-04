@@ -1,7 +1,6 @@
-# `noggin` - A Rust library for HTTP header parsing
+# Noggin
 
-This library provides traits and derive macros to make HTTP header parsing in Rust a breeze. It abstracts away the raw 
-string manipulations, letting developers work with more expressive and type-safe data structures.
+**A declarative, zero-copy, proc-macro based header parser for Rust.**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -47,4 +46,17 @@ assert_eq!(parsed_headers.content_length, 12);
 assert_eq!(parsed_headers.accept, vec!["text/html", "text/plain", "application/json"]);
 assert_eq!(parsed_headers.pragma.unwrap(), vec!["no-cache", "public"]);
 assert_eq!(body, b"hello world!");
+```
+
+## Testing
+
+Tests should run fine with the standard `cargo test`.
+
+However, for consistency, we recommend using the dockerized test environment.
+To use the dockerized test environment the only requirements are `make` and
+`docker` (you don't even need rust installed locally). Simply run the
+following command.
+
+```
+make test
 ```
