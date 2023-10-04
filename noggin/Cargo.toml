@@ -2,6 +2,10 @@
 name = "noggin"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+description = "A declarative, zero-copy, proc-macro based HTTP header parser"
+repository = "https://github.com/plasmaconduit/noggin/"
+readme = "../README.md"
 
 [dependencies]
 noggin-derive = "0.1.0"

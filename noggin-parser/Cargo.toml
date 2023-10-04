@@ -2,6 +2,10 @@
 name = "noggin-parser"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+description = "Traits and utilities for the noggin http header parser"
+repository = "https://github.com/plasmaconduit/noggin/"
+readme = "README.md"
 
 [dependencies]
 memchr = { workspace = true }
