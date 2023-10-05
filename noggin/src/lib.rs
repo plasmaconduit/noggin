@@ -9,7 +9,7 @@
 //! - **Declarative**: Define your HTTP headers using Rust structs with strongly typed
 //!   header values.
 //! - **Zero-copy capture**: Opt-in zero-copy header value parsing.
-//!   **Extensible**: Easily add new strongly typed header values.
+//! - **Extensible**: Easily add new strongly typed header values.
 //!
 //! # Examples
 //!

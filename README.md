@@ -42,11 +42,11 @@ pub struct TestHeaders<'a> {
     pub pragma: Option<Vec<&'a str>>,
 }
 
-let raw_headers = b"content-type: text/html\r\n\
-content-length: 12\r\n\
-accept: text/html, text/plain\r\n\
-pragma: no-cache, public\r\n\
-accept: application/json\r\n\r\n\
+let raw_headers = b"Content-Type: text/html\r\n\
+Content-Length: 12\r\n\
+Accept: text/html, text/plain\r\n\
+Pragma: no-cache, public\r\n\
+Accept: application/json\r\n\r\n\
 hello world!";
 
 let (parsed_headers, body) = TestHeaders::parse_headers(raw_headers).unwrap();
